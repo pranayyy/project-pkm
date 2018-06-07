@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}setupuser update{% endblock %}
+
+{% block content %}
+
+<form method="post">
+  {% csrf_token %}
+  {% include 'bs4_form.html' with form=form %}
+  <button type="submit" value="Update" class="btn btn-default">update</button>
+  <button type="reset"  class="btn btn-default">Cancel</button>
+
+</form>
+{% endblock %}

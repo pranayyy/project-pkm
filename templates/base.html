@@ -1,0 +1,93 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+      <title>{% block title %}EKA_TechServ{% endblock %}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    {% block extrastyle %}{% endblock %}
+    {% block extrahead %}{% endblock %}
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <!-- Custom styles for this template -->
+    <link href="/static/css/freelancer.min.css" rel="stylesheet">
+
+  </head>
+<body id="page-top">
+
+  <nav class="header-nav container" id="mainNav" >
+      <div class="container">
+
+            <a class="navbar-brand js-scroll-trigger" href="/"><img src="/static/img/ekatechserv_logo.png"></a>
+                {% block header %}
+                    {% if user.is_authenticated %}
+                     Hii {{user.username}}!
+                        <a class="float-md-right" href="{% url 'logout' %}" >(LOGOUT)</a>
+                    {% else %}
+                       <a href="{% url 'login' %}">Hii,welcome</a>
+                    {% endif %}
+                 {% endblock %}
+               <a class="float-md-right"  size="2" href="/" >Personal Knowledge Mangement.PKM</a>
+      </div>
+  </nav>
+
+
+    <!-- <section class=" text-white mb-0" id="about">  -->
+     <section class="" id="about">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-10">
+              {% block subheader %}
+                {% if user.is_authenticated  %}
+                  <div class="subheader">
+                   <a href="{% url 'set_user' %}"><button class="btn btn-primary">Setup user</button></a>
+                   <a href="{% url 'buildkb' %}"><button class="btn btn-primary">Build KB</button></a>
+                   <a href="{% url 'search_form' %}"><button class="btn btn-primary">Search</button></a>
+                   <a href="{% url 'help' %}"><button class="float-lg-right">Help?</button></a>
+                   <a href="{% url "sharedknowledge" %}"><button class="float-lg-right">Shared Knowledge</button></a>
+                  </div>
+                {% endif %}
+              {% endblock %}
+              {% if messages %}
+                <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                 {% endfor %}
+                 </ul>
+               {% endif %}
+              {% block content%}{% endblock %}
+          <script>
+           function goBack()
+            {
+             window.history.back();
+
+           }
+            function goHome()
+            {
+             window.home()
+            }
+          </script>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+
+  <footer class="img-thumbnail">
+   <div class="copyright py-4 text-center text-white">
+      <div class="container">
+        <small>Copyright &copy; 2018,EKATECHSERV. All Rights Reserved</small>
+      </div>
+    </div>
+  </footer>
+  </html>

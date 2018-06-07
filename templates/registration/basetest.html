@@ -1,0 +1,100 @@
+ <script type="text/javascript" language="javascript">
+        $(".expand").click(function () {
+            $(this).toggle();
+            $(this).next().toggle();
+            $(this).parent().parent().children().last().toggle();
+        });
+        $(".collapse").click(function () {
+            $(this).toggle();
+            $(this).prev().toggle();
+            $(this).parent().parent().children().last().toggle();
+        });
+
+ </script>
+
+ <div class="wfm">
+        <ul>
+            <li>
+                <div>Node 1<img alt="" class="expand" src="/static/img/Minus.png" />
+                </div>
+                <ul>
+                    <li>
+                        <div>Node 1 - 1<img alt="" class="expand" src="/static/img/Minus.png" />
+                        </div>
+                        <ul>
+                            <li>
+                                <div>Node 1 - 1 - 1<img alt="" class="expand" src="/static/img/Minus.png" />
+                                </div>
+                                <ul>
+                                    <li>
+                                        <div>Node 1 - 1 - 1 - 1<img alt="" class="expand" src="/static/img/Minus.png" />
+                                        </div>
+                                        <ul>
+                                            <li>
+                                                <div>Node 1 - 1 - 1 - 1 - 1<img alt="" class="expand" src="/static/img/Minus.png" />
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div>Node 1 - 1 - 1 - 1 - 2<img alt="" class="expand" src="/static/img/Minus.png" />
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div>Node 1 - 1 - 1 - 1 - 3<img alt="" class="expand" src="/static/img/Minus.png" />
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <div>Node 1 - 1 - 1 - 2<img alt="" class="expand" src="/static/img/Minus.png" />
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>Node 1 - 1 - 1 - 3<img alt="" class="expand" src="/static/img/Minus.png" />
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div>Node 1 - 2
+                        </div>
+                        <ul>
+                            <li>
+                                <div>Node 1 - 2 - 1
+                                </div>
+                                <ul>
+                                    <li>
+                                        <div>Node 1 - 2 - 1 - 1
+                                        </div>
+                                        <ul>
+                                            <li>
+                                                <div>Node 1 - 2 - 1 - 1 - 1
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div>Node 1 - 2 - 1 - 1 - 2
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div>Node 1 - 2 - 1 - 1 - 3
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <div>Node 1 - 2 - 1 - 2
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>Node 1 - 2 - 1 - 3<img alt="" class="collapse" src="/static/img/Plus.png" />
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>

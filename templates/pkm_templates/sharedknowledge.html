@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %} Shared Knowledge {% endblock %}
+ {% block content %}
+<h6>Shared Knowledge</h6>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Full/Category</th>
+      <th>who has sahred</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for knowledge in knowledges %}
+    <tr>
+        <td><a href="/detailknowledge/{{ knowledge.id }}"><div> {{ knowledge.title }}</div></a> </td>
+        <td>{{ knowledge.email }}</td>
+    </tr>
+
+  {% endfor %}
+
+  </tbody>
+</table>
+    <input type="button" class="btn"  onclick="goBack()" value="ok">
+     <input type="button" class="btn"  onclick="goBack()" value="cancel">
+     <script>
+         function goBack()
+          {
+             window.history.back();
+          }
+
+     </script>
+
+
+
+{% endblock %}

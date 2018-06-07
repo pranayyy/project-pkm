@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+  {% for detail in detail %}
+      <div class="text-center">
+          <p><b>{{ detail.title|capfirst }}</b></p>
+          <p>knowledge category :-<b>{{ detail.knowledge_category }}</b></p>
+          <p>knowledge :-<b>{{ detail.knowledge }}</b></p>
+          <a>shared by:-<b>{{ detail.email }}</b></a>
+      </div>
+  {% endfor %}
+    <input type="submit" class="btn"   onclick="goHome()" value="ok">
+    <input type="button" class="btn"  onclick="goBack()" value="cancel">
+
+{% endblock %}

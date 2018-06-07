@@ -1,0 +1,18 @@
+<!-- templates/registration/login.html -->
+{% extends 'base.html' %}
+
+{% block title %}setupuser{% endblock %}
+
+{% block content %}
+
+<form method="post">
+  {% csrf_token %}
+  {% include 'bs4_form.html' with form=form %}
+  <button type="submit" class="btn btn-default">Set up</button>
+  <button type="reset"  class="btn btn-default">Cancel</button>
+
+</form>
+    <div class="etc-login-form">
+       <a href="{% url 'password_change' %}">change login password</a>
+    </div>
+{% endblock %}

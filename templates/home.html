@@ -1,0 +1,27 @@
+<!-- templates/home.html -->
+{% extends 'base.html' %}
+
+<!--
+{//% block content %}
+    <a href="{//% url 'set_user' %}"><button class="btn btn-primary">Setup user</button></a>
+    <a href="#"><button class="btn btn-primary">Build KB</button></a>
+   <a href="{//% url 'search' %}"><button class="btn btn-primary">Search</button></a>
+   <a href="{//% url 'help' %}"><button class="float-lg-right">Help?</button></a>
+   <a href="#"><button class="float-lg-right">Shared Knowledge</button></a>
+
+{//% endblock %}
+"""
+-->
+<!--
+{//% if user.is_authenticated %}
+  Hi {//{user.username}}!
+  <p><a href="{/% url 'logout' %}">logout</a></p>a
+  <p><a href="{/% url 'password_change' %}">
+    Change password
+  </a></p>
+{/% else %}
+  <p>You are not logged in</p>
+  <a href="{/% url 'login' %}">login</a> |
+  <a href="{/% url 'signup' %}">Signup</a>
+{/% endif %}
+-->
