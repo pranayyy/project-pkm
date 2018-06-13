@@ -3,11 +3,11 @@ from .models import Setupuser,Buildkb
 from django.urls import reverse_lazy
 from django.views import generic
 from .forms import CustomUserCreationForm,Set_User_Form,Build_kbform
-from django.views.generic.edit import FormView,UpdateView,DeleteView
+from django.views.generic.edit import FormView,UpdateView
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-
+from django.contrib.postgres.search import SearchVector,TrigramSimilarity
 
 
 class SignUp(generic.CreateView):
@@ -21,12 +21,12 @@ def home(request):
     return render(request,"home.html")
 
 
-
+@method_decorator(login_required, name='dispatch')
 class Set_user(FormView):
     template_name="pkm_templates/set_up_user.html"
     form_class = Set_User_Form
     success_url = '/thanks/'
-    #@method_decorator(login_required)
+
     def form_valid(self, form):
         nickname=self.request.user.username
         org = form.cleaned_data.get('your_organization')
@@ -45,12 +45,14 @@ class Set_user(FormView):
         messages.success(self.request,"Data saved succesfully")
         return redirect("/")
 
+@method_decorator(login_required, name='dispatch')
 class Set_user_update(UpdateView):
     model = Setupuser
-    fields = ["your_desigantion","your_job_level","share_KB_with"]
-    template_name_suffix = '_update_form'
+    fields = ["your_designation","your_job_level"]#,"share_KB_with"]
+    template_name = "pkm_templates/setup_user_update_form.html"
+    success_url = "/"
 
-
+@method_decorator(login_required, name='dispatch')
 class Build_Kb(FormView):
     template_name = "pkm_templates/buildkb.html"
     form_class = Build_kbform
@@ -65,8 +67,10 @@ class Build_Kb(FormView):
         title=form.cleaned_data.get("title")
         knowledge=form.cleaned_data.get("knowledge")
         keywords=form.cleaned_data.get("keywords")
+        document=self.request.FILES.getlist('document')
         share_with=form.cleaned_data.get("share_with")
-        instance = Buildkb.objects.create(email=cuemail_id,knowledge_category=knowledge_category,title=title,knowledge=knowledge,keywords=keywords)
+        instance = Buildkb.objects.create(email=cuemail_id,knowledge_category=knowledge_category,
+                                          title=title,knowledge=knowledge,keywords=keywords,document=document)
         for user in share_with:
             instance.share_with.add(user)
             instance.save()
@@ -98,6 +102,7 @@ def search(request):
     if 'q' in request.GET and request.GET['q']:
         q = request.GET['q']
         titles = Buildkb.objects.filter(title__icontains=q)
+        #titles=Buildkb.objects.filter(title = TrigramSimilarity('title', q)).filter(title__gt=0.3).order_by('-title')
         return render(request, 'pkm_templates/search_form.html',
                       {'found': titles, 'query': q})
     else:
@@ -106,5 +111,5 @@ def search(request):
 @login_required
 def detailknolwledge(request,id=None):
     detail=Buildkb.objects.values("knowledge_category","knowledge","title","email").filter(id=id)
-    return render(request, 'pkm_templates/detail.html',{"detail":detail} )
+    return render(request, 'pkm_templates/detail.html',{"detail":detail})
 

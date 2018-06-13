@@ -2,7 +2,7 @@
 {% block content %}
     <form class="select2-search--hide" action="/search/" method="get" >
         <div class="search-label-icon" align="center">
-          <input type="text" name="q" class="form-control" placeholder="Search.......">
+            <input type="text" name="q" class="form-control" placeholder="Search.......">
             <input type="submit" class="btn" value="ok">
             <input type="button" class="btn" onclick="goBack()" value="cancel">
         </div>
@@ -11,8 +11,7 @@
     {% for knowledge in found %}
     <div class="list-group-item-action"  >
         <a href="/detailknowledge/{{ knowledge.id }}"> {{ knowledge.title }}</a>
+         <p>{{ knowledge.knowledge|truncatewords:22 }}</p>
     </div>
     {% endfor %}
-
-
 {% endblock %}

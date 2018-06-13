@@ -52,7 +52,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'pkm_app.apps.YourAppConfig',
     'widget_tweaks',
-    'multiselectfield',
                ]
 
 MIDDLEWARE = [

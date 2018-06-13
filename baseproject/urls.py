@@ -14,12 +14,13 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import *
 from django.contrib import admin
 from django.urls import path,include
 from django.views.generic.base import TemplateView
 from pkm_app import views
-
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns =  [
@@ -29,13 +30,18 @@ urlpatterns =  [
     path('buildknowledge',views.Build_Kb.as_view(),name='buildkb'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('setupuser/',views.Set_user.as_view(),name="set_user"),
-    path('setupuser/update', views.Set_user_update.as_view(),name='set_user_update'),
+  #  path('update/', views.Set_user_update.as_view(),name='set_user_update'),
     path('search_form/',views.search_form,name="search_form"),
     path('search/', views.search,name="search"),
     path('terms and conditions/',views.terms,name="terms and conditions"),
     path('basetest/',views.basetest),
     path('sharedknowledge',views.sharedknowledge,name="sharedknowledge"),
     path('help/',views.help,name='help'),
-    url('^detailknowledge/(\d+)/$',views.detailknolwledge)
+    url('^update_setupuser/(?P<pk>[\w-]+)$', views.Set_user_update.as_view(), name='update'),
+    url('^detailknowledge/(\d+)/$',views.detailknolwledge),
 
             ]
+
+if settings.DEBUG is True:
+     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

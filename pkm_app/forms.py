@@ -29,7 +29,6 @@ class Build_kbform(ModelForm):
 
      knowledge = forms.Textarea()
      share_with = forms.ModelMultipleChoiceField(queryset=User.objects.all(), widget=forms.CheckboxSelectMultiple,required=False)
-
      def __init__(self, *args, **kwargs):
          current_user = kwargs.pop('user', None)
          super(Build_kbform, self).__init__(*args, **kwargs)

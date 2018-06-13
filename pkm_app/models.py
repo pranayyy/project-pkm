@@ -100,6 +100,8 @@ class Buildkb(models.Model):
     title=models.CharField(max_length=500,blank=True)
     knowledge=models.TextField(blank=False)
     keywords=models.TextField(blank=True,null=True)
+    document = models.FileField(upload_to='media/documents/',default="not given")
+    uploaded_at = models.DateTimeField(auto_now_add=True)
     share_with=models.ManyToManyField(User)
 
     def __str__(self):
