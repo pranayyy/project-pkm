@@ -26,7 +26,10 @@ class Set_user(FormView):
     template_name="pkm_templates/set_up_user.html"
     form_class = Set_User_Form
     success_url = '/thanks/'
-
+    def get_form_kwargs(self):
+        kwargs = super(Set_user, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
     def form_valid(self, form):
         nickname=self.request.user.username
         org = form.cleaned_data.get('your_organization')

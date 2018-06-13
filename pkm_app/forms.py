@@ -3,7 +3,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import User,Setupuser,Buildkb
 from django.forms import ModelForm
-
+from django.db.models import Q
 class CustomUserCreationForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
@@ -19,7 +19,15 @@ class CustomUserChangeForm(UserChangeForm):
 
 
 class Set_User_Form(ModelForm):
-    share_KB_with = forms.ModelMultipleChoiceField(queryset=User.objects.all(),widget=forms.CheckboxSelectMultiple)
+
+    share_KB_with = forms.ModelMultipleChoiceField(queryset=User.objects.all(), widget=forms.CheckboxSelectMultiple)
+    def __init__(self, *args, **kwargs):
+        current_user = kwargs.pop('user', None)
+        super(Set_User_Form, self).__init__(*args, **kwargs)
+        if current_user is not None:
+        # Modify the queryset here as you see fit
+             self.fields['share_KB_with'].queryset = User.objects.all().filter(~Q(email__iexact=current_user.email))
+
     class Meta:
         model=Setupuser
         exclude=["email_id"]
